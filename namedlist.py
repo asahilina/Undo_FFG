@@ -237,7 +237,7 @@ def _fields_and_defaults(typename, field_names, default, rename):
 
     # If field_names is a Mapping, change it to return the
     #  (field_name, default) pairs, as if it were a list.
-    if isinstance(field_names, _collections.Mapping):
+    if isinstance(field_names, _collections.abc.Mapping):
         field_names = field_names.items()
 
     # Parse and validate the field names.
@@ -396,8 +396,8 @@ def namedlist(typename, field_names, default=NO_DEFAULT, rename=False,
                  '__setitem__': _nl_setitem,
                  '__iter__': _nl_iter,
                  '__hash__': None,
-                 'count': _nl_count,
-                 'index': _nl_index,
+                 '_count': _nl_count,
+                 '_index': _nl_index,
                  '_update': _nl_update,
                  '_replace': _nl_replace}
     type_dict.update(_common_fields(fields, _build_docstring(typename, fields, defaults)))
@@ -409,7 +409,7 @@ def namedlist(typename, field_names, default=NO_DEFAULT, rename=False,
     t = type(typename, (object,), type_dict)
 
     # Register its ABC's
-    _collections.Sequence.register(t)
+    _collections.abc.Sequence.register(t)
 
     # And return it.
     return t
