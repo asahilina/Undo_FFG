@@ -781,7 +781,7 @@ if __name__ == '__main__':
         sys.exit(f'Usage: {sys.argv[0]} streamfile')
     with open(sys.argv[1], 'rb') as streamfile:
         while True:
-            json.dump(read_stream(streamfile), sys.stdout, cls=JSONEncoder, indent=4)
+            json.dump(read_stream(streamfile), sys.stdout, cls=JSONEncoder, indent=4, ensure_ascii=False)
             print()
             if streamfile.peek(1) == b'':
                 break
